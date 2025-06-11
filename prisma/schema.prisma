@@ -1,0 +1,90 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          Role      @default(USER)
+  image         String?
+  emailVerified DateTime? @map("email_verified")
+
+  messagesSent     Message[]   @relation("SenderMessages")
+  messagesReceived Message[]   @relation("ReceiverMessages")
+
+  appointments Appointment[]
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model Barber {
+  id           String       @id @default(uuid())
+  name         String
+  description  String?
+  services     Service[]
+  appointments Appointment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id        String   @id @default(uuid())
+  name      String
+  price     Float
+  duration  Int      // minutes
+
+  barber   Barber @relation(fields: [barberId], references: [id])
+  barberId String
+
+  appointments Appointment[]
+}
+
+model Appointment {
+  id        String             @id @default(uuid())
+  date      DateTime
+  status    AppointmentStatus  @default(PENDING)
+
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+
+  barber   Barber @relation(fields: [barberId], references: [id])
+  barberId String
+
+  service   Service @relation(fields: [serviceId], references: [id])
+  serviceId String
+
+  createdAt DateTime @default(now())
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  content    String
+  createdAt  DateTime @default(now())
+
+  sender     User @relation("SenderMessages", fields: [senderId], references: [id])
+  senderId   String
+
+  receiver   User @relation("ReceiverMessages", fields: [receiverId], references: [id])
+  receiverId String
+} 

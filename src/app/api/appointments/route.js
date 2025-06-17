@@ -55,4 +55,30 @@ export async function POST(req) {
     console.error(err);
     return new Response("Server error", { status: 500 });
   }
+}
+
+export async function PATCH(req) {
+  const session = await getServerSession(authOptions);
+  if (!session || session.user.role !== "ADMIN") {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  try {
+    const body = await req.json();
+    const { id, status } = body;
+    if (!id || !status) {
+      return new Response("Eksik veri", { status: 400 });
+    }
+    const updated = await prisma.appointment.update({
+      where: { id },
+      data: { status },
+    });
+    return new Response(JSON.stringify(updated), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error(err);
+    return new Response("Server error", { status: 500 });
+  }
 } 

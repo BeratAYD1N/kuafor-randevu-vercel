@@ -20,6 +20,9 @@ export default async function AdminHome() {
         <Link href="/admin/barbers" className="admin-btn">
           Kuaför / Hizmet Yönetimi
         </Link>
+        <Link href="/admin/appointments" className="admin-btn">
+          Randevu Yönetimi
+        </Link>
       </div>
     </div>
   );

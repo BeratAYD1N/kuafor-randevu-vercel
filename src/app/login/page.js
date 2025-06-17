@@ -19,7 +19,7 @@ export default function LoginPage() {
     });
 
     if (res.ok) {
-      router.push("/");
+      router.push("/barbers");
     } else {
       setError("Giriş başarısız");
     }
@@ -28,7 +28,7 @@ export default function LoginPage() {
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 p-4" style={{background:'#faf5ff'}}>
       <form onSubmit={handleSubmit} style={{maxWidth:'28rem'}} className="w-100 bg-white shadow rounded-3 p-4">
-        <h1 className="h3 fw-bold text-center mb-4">Giriş Yap</h1>
+        <h1 className="page-title">Giriş Yap</h1>
         {error && <p className="text-danger text-center">{error}</p>}
 
         <div className="mb-3">

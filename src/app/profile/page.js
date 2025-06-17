@@ -15,9 +15,20 @@ export default async function ProfilePage() {
   });
 
   return (
-    <div className="max-w-lg mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Profilim</h1>
-      <ProfileForm user={user} />
+    <div className="container-padded py-5 d-flex justify-content-center align-items-center min-vh-100">
+      <div className="card shadow p-4" style={{maxWidth:'32rem', width:'100%'}}>
+        <h1 className="page-title">Profilim</h1>
+        <div className="mb-4 text-center">
+          <div className="rounded-circle bg-primary bg-opacity-25 d-inline-flex align-items-center justify-content-center" style={{width:64, height:64, fontSize:32, color:'var(--primary)'}}>
+            {user.name?.[0]?.toUpperCase() || user.email[0].toUpperCase()}
+          </div>
+          <div className="mt-2">
+            <div className="fw-semibold">{user.name}</div>
+            <div className="text-muted small">{user.email}</div>
+          </div>
+        </div>
+        <ProfileForm user={user} />
+      </div>
     </div>
   );
 } 

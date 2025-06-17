@@ -40,26 +40,40 @@ export default function ConversationPage() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 flex flex-col h-[80vh]">
-      <div className="flex-1 overflow-y-auto space-y-2 border p-4 rounded">
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={`px-3 py-2 rounded w-fit ${m.senderId === id ? "bg-gray-200 ml-auto" : "bg-blue-600 text-white"}`}
-          >
-            {m.content}
+    <div className="container-padded py-4 d-flex flex-column align-items-center" style={{maxWidth:'38rem', minHeight:'80vh'}}>
+      <div className="card shadow w-100 d-flex flex-column flex-grow-1" style={{minHeight:'60vh'}}>
+        <div className="card-body overflow-auto px-3 py-4" style={{height:'60vh'}}>
+          <div className="d-flex flex-column gap-3">
+            {messages.map((m) => (
+              <div
+                key={m.id}
+                className={
+                  m.senderId === id
+                    ? "align-self-end bg-light border rounded-pill px-4 py-2 text-dark"
+                    : "align-self-start text-white rounded-pill px-4 py-2"
+                }
+                style={
+                  m.senderId === id
+                    ? {maxWidth:'75%', wordBreak:'break-word'}
+                    : {maxWidth:'75%', wordBreak:'break-word', background:'#7c3aed'}
+                }
+              >
+                {m.content}
+              </div>
+            ))}
+            <div ref={bottomRef} />
           </div>
-        ))}
-        <div ref={bottomRef} />
+        </div>
+        <form onSubmit={send} className="card-footer bg-white border-0 d-flex gap-2 align-items-center sticky-bottom p-3">
+          <input
+            className="form-control"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Mesaj yaz..."
+          />
+          <button className="btn" type="submit" style={{background:'#7c3aed', color:'#fff'}}>Gönder</button>
+        </form>
       </div>
-      <form onSubmit={send} className="mt-4 flex gap-2">
-        <input
-          className="flex-1 border rounded px-3 py-2"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">Gönder</button>
-      </form>
     </div>
   );
 } 

@@ -29,7 +29,7 @@ export default function RegisterPage() {
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 p-4" style={{background:'#faf5ff'}}>
       <form onSubmit={handleSubmit} style={{maxWidth:'28rem'}} className="w-100 bg-white shadow rounded-3 p-4">
-        <h1 className="h3 fw-bold text-center mb-4">Kayıt Ol</h1>
+        <h1 className="page-title">Kayıt Ol</h1>
         {error && <p className="text-danger text-center">{error}</p>}
 
         <div className="mb-3">

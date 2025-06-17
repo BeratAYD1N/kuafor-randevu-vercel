@@ -1,3 +1,31 @@
+# Kurulum ve Çalıştırma
+
+Aşağıdaki adımları izleyerek projeyi GitHub'dan indirip çalıştırabilirsiniz:
+
+```bash
+# 1. Projeyi klonla
+git clone <repo-linki>
+cd <proje-klasörü>
+
+# 2. Gerekli paketleri yükle
+npm install
+
+# 3. (Varsa) veritabanı migrasyonlarını uygula
+npx prisma migrate dev
+
+# 4. (Varsa) seed dosyasını çalıştır
+node prisma/seed.js
+
+# 5. Geliştirme sunucusunu başlat
+npm run dev
+
+# Proje http://localhost:3000 adresinde çalışacaktır.
+```
+
+> Not: Eğer `.env` dosyası gerekiyorsa, örnek dosyadan kopyalayıp doldurmayı unutmayın.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

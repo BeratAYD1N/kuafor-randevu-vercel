@@ -17,18 +17,28 @@ export default async function AppointmentsPage() {
   });
 
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-center">Randevularım</h1>
-      {appointments.length === 0 && <p>Henüz randevunuz yok.</p>}
-      {appointments.map((a) => (
-        <div key={a.id} className="border rounded p-4 flex flex-col gap-1">
-          <span className="font-medium">
-            {new Date(a.date).toLocaleString("tr-TR")} - {a.barber.name}
-          </span>
-          <span>{a.service.name}</span>
-          <span className="text-sm text-gray-500 capitalize">{a.status.toLowerCase()}</span>
-        </div>
-      ))}
+    <div className="container-padded py-5" style={{maxWidth:'40rem'}}>
+      <h1 className="page-title">Randevularım</h1>
+      {appointments.length === 0 && <p className="text-center text-muted">Henüz randevunuz yok.</p>}
+      <div className="d-flex flex-column gap-4">
+        {appointments.map((a) => (
+          <div key={a.id} className="card shadow-sm border-0">
+            <div className="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+              <div>
+                <div className="fw-bold" style={{fontSize:'1.15rem', color:'#7c3aed', letterSpacing:'0.5px'}}>
+                  {a.barber.name}
+                </div>
+                <div className="text-muted small mb-1">{a.service.name}</div>
+                <div className="text-dark small">{new Date(a.date).toLocaleString("tr-TR")}</div>
+              </div>
+              <span className={`badge px-3 py-2 ${a.status === 'PENDING' ? 'bg-warning text-dark' : a.status === 'CANCELLED' ? 'bg-danger' : 'bg-success'}`}
+                style={{fontSize:'0.95rem', letterSpacing:'0.5px', minWidth:'90px', textAlign:'center'}}>
+                {a.status === 'PENDING' ? 'Bekliyor' : a.status === 'CANCELLED' ? 'İptal' : 'Onaylandı'}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 } 

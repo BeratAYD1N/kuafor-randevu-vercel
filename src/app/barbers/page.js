@@ -10,13 +10,15 @@ export default async function BarbersPage() {
 
   return (
     <div className="container-padded py-5">
-      <h1 className="h3 text-center fw-bold mb-4">Kuaförler</h1>
+      <h1 className="page-title">Kuaförler</h1>
       <div className="row g-4">
         {barbers.map((barber) => (
           <div key={barber.id} className="col-12 col-sm-6 col-lg-4">
             <div className="card h-100 shadow-sm">
               <div className="card-body d-flex flex-column">
-                <h2 className="h5 fw-semibold text-primary mb-2">{barber.name}</h2>
+                <div className="mb-2">
+                  <span className="fw-bold" style={{fontSize:'1.15rem', color:'#7c3aed', letterSpacing:'0.5px'}}>{barber.name}</span>
+                </div>
                 {barber.description && <p className="text-muted small mb-3">{barber.description}</p>}
                 <h6 className="fw-bold">Hizmetler</h6>
                 <ul className="list-unstyled small flex-grow-1">

@@ -38,32 +38,34 @@ export default function AdminUsersPage() {
   if (error) return <p className="p-6 text-red-500">{error}</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Kullanıcılar</h1>
-      {users.map((u) => (
-        <div key={u.id} className="border rounded p-4 flex justify-between items-center">
-          <div>
-            <p className="font-medium">{u.name}</p>
-            <p className="text-sm text-gray-600">{u.email}</p>
+    <div className="admin-bg d-flex align-items-center justify-content-center min-vh-100">
+      <div className="admin-card mx-auto">
+        <h1 className="page-title">Kullanıcılar</h1>
+        {users.map((u) => (
+          <div key={u.id} className="admin-user-card d-flex justify-content-between align-items-center">
+            <div>
+              <p className="fw-semibold mb-1">{u.name}</p>
+              <p className="text-muted small mb-0">{u.email}</p>
+            </div>
+            <div className="d-flex gap-2 align-items-center">
+              <span className="badge bg-light text-primary border border-primary px-2 py-1">{u.role}</span>
+              <button
+                onClick={() => toggleRole(u.id, u.role)}
+                className="btn btn-outline-purple btn-sm"
+              >
+                Rolü Değiştir
+              </button>
+              <button
+                onClick={() => del(u.id)}
+                className="btn btn-danger btn-sm"
+              >
+                Sil
+              </button>
+            </div>
           </div>
-          <div className="flex gap-2 items-center">
-            <span className="text-sm">{u.role}</span>
-            <button
-              onClick={() => toggleRole(u.id, u.role)}
-              className="px-2 py-1 bg-yellow-500 text-white rounded text-xs"
-            >
-              Rolü Değiştir
-            </button>
-            <button
-              onClick={() => del(u.id)}
-              className="px-2 py-1 bg-red-600 text-white rounded text-xs"
-            >
-              Sil
-            </button>
-          </div>
-        </div>
-      ))}
-      {users.length === 0 && <p>Hiç kullanıcı yok.</p>}
+        ))}
+        {users.length === 0 && <p>Hiç kullanıcı yok.</p>}
+      </div>
     </div>
   );
 } 

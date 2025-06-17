@@ -25,7 +25,10 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession(authOptions);
   return (
     <html lang="tr" className="light">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/berber-favicon.svg" />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable}`} style={{background:'#faf5ff'}}>
         <Providers session={session}>
           <Nav />
           {children}

@@ -54,11 +54,11 @@ export default function Nav() {
           <div className="d-flex gap-2">
             {!session ? (
               <>
-                <Link href="/login" className="btn btn-link text-decoration-none">Giriş</Link>
-                <Link href="/register" className="btn btn-primary">Kayıt Ol</Link>
+                <Link href="/login" className="btn btn-outline-purple">Giriş</Link>
+                <Link href="/register" className="btn btn-purple">Kayıt Ol</Link>
               </>
             ) : (
-              <button className="btn btn-outline-danger btn-sm" onClick={() => signOut()}>
+              <button className="btn btn-outline-danger btn-sm" onClick={() => signOut({ callbackUrl: '/' })}>
                 Çıkış
               </button>
             )}

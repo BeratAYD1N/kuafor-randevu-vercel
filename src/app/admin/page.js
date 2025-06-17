@@ -11,14 +11,16 @@ export default async function AdminHome() {
   }
 
   return (
-    <div className="max-w-lg mx-auto p-6 space-y-4">
-      <h1 className="text-3xl font-bold">Admin Paneli</h1>
-      <Link href="/admin/users" className="block border rounded px-4 py-2 hover:bg-gray-100">
-        Kullanıcı Yönetimi
-      </Link>
-      <Link href="/admin/barbers" className="block border rounded px-4 py-2 hover:bg-gray-100">
-        Kuaför / Hizmet Yönetimi
-      </Link>
+    <div className="d-flex align-items-center justify-content-center min-vh-100 admin-bg">
+      <div className="admin-card mx-auto">
+        <h1 className="page-title">Admin Paneli</h1>
+        <Link href="/admin/users" className="admin-btn">
+          Kullanıcı Yönetimi
+        </Link>
+        <Link href="/admin/barbers" className="admin-btn">
+          Kuaför / Hizmet Yönetimi
+        </Link>
+      </div>
     </div>
   );
 } 

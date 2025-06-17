@@ -4,36 +4,51 @@ import { useState } from "react";
 
 export default function ProfileForm({ user }) {
   const [name, setName] = useState(user.name);
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setMessage(null);
     const res = await fetch("/api/profile", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, password: password || undefined }),
     });
     if (res.ok) {
-      setMessage("Güncellendi!");
+      setMessage("Profil güncellendi!");
+      setPassword("");
     } else {
-      setMessage("Hata");
+      setError("Bir hata oluştu.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {message && <p className="text-green-600">{message}</p>}
-      <div>
-        <label className="block mb-1">İsim</label>
+    <form onSubmit={handleSubmit}>
+      {message && <div className="alert alert-success py-2">{message}</div>}
+      {error && <div className="alert alert-danger py-2">{error}</div>}
+      <div className="mb-3">
+        <label className="form-label">İsim</label>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border rounded px-3 py-2"
+          className="form-control"
+          required
         />
       </div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        Kaydet
-      </button>
+      <div className="mb-3">
+        <label className="form-label">Yeni Şifre (isteğe bağlı)</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="form-control"
+          placeholder="Yeni şifre bırakılırsa değişmez"
+        />
+      </div>
+      <button type="submit" className="btn btn-primary w-100">Kaydet</button>
     </form>
   );
 } 

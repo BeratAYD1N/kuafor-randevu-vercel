@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  // App Router varsayılan olarak aktif
+};
 
 export default nextConfig;

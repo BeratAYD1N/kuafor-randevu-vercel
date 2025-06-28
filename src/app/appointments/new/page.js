@@ -49,7 +49,7 @@ export default function NewAppointmentPage() {
   };
 
   if (status === "loading") return <p className="p-6">Yükleniyor...</p>;
-  if (!session) {
+  if (status === "unauthenticated" || !session) {
     return (
       <div className="d-flex align-items-center justify-content-center min-vh-100">
         <div className="admin-card mx-auto text-center p-5" style={{maxWidth:'26rem'}}>

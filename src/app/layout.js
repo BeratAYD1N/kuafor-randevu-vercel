@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import { authOptions } from "@/lib/auth-options";
@@ -6,13 +6,13 @@ import { getServerSession } from "next-auth";
 import Nav from "@/components/Nav";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -28,7 +28,7 @@ export default async function RootLayout({ children }) {
       <head>
         <link rel="icon" type="image/svg+xml" href="/berber-favicon.svg" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`} style={{background:'#faf5ff'}}>
+      <body className={`${inter.variable} ${robotoMono.variable}`} style={{background:'#faf5ff'}}>
         <Providers session={session}>
           <Nav />
           {children}

@@ -3,7 +3,24 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 
 export default function Nav() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  // SessionProvider yoksa veya loading durumundaysa basit navbar göster
+  if (status === "loading" || !session) {
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
+        <div className="container">
+          <Link href="/" className="navbar-brand fw-bold" style={{color:'var(--primary)'}}>
+            Elit Erkek Kuaförü
+          </Link>
+          <div className="d-flex gap-2">
+            <Link href="/login" className="btn btn-outline-purple">Giriş</Link>
+            <Link href="/register" className="btn btn-purple">Kayıt Ol</Link>
+          </div>
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
@@ -31,37 +48,26 @@ export default function Nav() {
                 Kuaförler
               </Link>
             </li>
-            {session && (
-              <>
-                <li className="nav-item">
-                  <Link href="/appointments" className="nav-link">Randevularım</Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/messages" className="nav-link">Mesajlar</Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/profile" className="nav-link">Profil</Link>
-                </li>
-                {session.user.role === "ADMIN" && (
-                  <li className="nav-item">
-                    <Link href="/admin" className="nav-link">Admin</Link>
-                  </li>
-                )}
-              </>
+            <li className="nav-item">
+              <Link href="/appointments" className="nav-link">Randevularım</Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/messages" className="nav-link">Mesajlar</Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/profile" className="nav-link">Profil</Link>
+            </li>
+            {session.user.role === "ADMIN" && (
+              <li className="nav-item">
+                <Link href="/admin" className="nav-link">Admin</Link>
+              </li>
             )}
           </ul>
 
           <div className="d-flex gap-2">
-            {!session ? (
-              <>
-                <Link href="/login" className="btn btn-outline-purple">Giriş</Link>
-                <Link href="/register" className="btn btn-purple">Kayıt Ol</Link>
-              </>
-            ) : (
-              <button className="btn btn-outline-danger btn-sm" onClick={() => signOut({ callbackUrl: '/' })}>
-                Çıkış
-              </button>
-            )}
+            <button className="btn btn-outline-danger btn-sm" onClick={() => signOut({ callbackUrl: '/' })}>
+              Çıkış
+            </button>
           </div>
         </div>
       </div>
